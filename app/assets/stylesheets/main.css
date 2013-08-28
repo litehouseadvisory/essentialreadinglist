@@ -15,7 +15,7 @@ html, body {
 	
 #header {
 		    position: absolute;
-		    top: 0%;
+		    top: 40%;
 		    left: 10px;
 		    z-index: 999;
 		    color: #FFA500;
