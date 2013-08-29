@@ -67,5 +67,7 @@ html, body {
     text-decoration: none;
 }
 
-
+#navbar {
+display: none;
+}
 
