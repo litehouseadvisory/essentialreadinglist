@@ -1,5 +1,5 @@
 Gwerl::Application.routes.draw do
-  get "users/new"
+  resources :users
   root "static_pages#intro"
   match '/signup', to: 'users#new', via: 'get'
   match '/home', to: 'static_pages#home', via: 'get'
