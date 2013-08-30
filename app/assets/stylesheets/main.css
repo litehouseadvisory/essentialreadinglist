@@ -16,14 +16,18 @@ html, body {
 #header {
 		    position: absolute;
 		    top: 40%;
-		    left: 10px;
+		    left: 20px;
 		    z-index: 999;
 		    color: #FFA500;
 		    padding: 5px;
-		    width: 400px;
+		    width: 450px;
 		    height: 70px;
 		    border-radius: 5%;
-		    text-align: left;
+		    text-align: right;
+}
+
+#header h1 {
+	text-align: left;
 }
 		
 #slogan {
