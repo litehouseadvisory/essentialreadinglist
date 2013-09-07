@@ -1,11 +1,6 @@
 Gwerl::Application.routes.draw do
-  get "books/new"
-  get "books/index"
-  get "books/show"
-  get "books/create"
-  get "books/destroy"
-  get "books/edit"
-  get "books/update"
+  resources :books 
+  match '/search', to: 'books#search', via: 'get'
   resources :users do
     member do
       get :following, :followers

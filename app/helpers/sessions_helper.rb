@@ -45,4 +45,11 @@ module SessionsHelper
     session[:return_to] = request.url
   end
   
+  def amazon_url(isbn)
+    link = "unknown"
+    res = Amazon::Ecs.item_lookup(isbn, { :response_group => "Medium"})
+    link = res.items[0].get("DetailPageURL") unless res.items.first.nil?
+    amazon_url = link.to_s
+  end
+  
 end

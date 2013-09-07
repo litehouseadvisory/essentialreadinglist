@@ -1,2 +1,49 @@
-<h1>Books#new</h1>
-<p>Find me in app/views/books/new.html.erb</p>
+<%= provide(:title, 'Add Book') %>
+
+<h1>Add a Book to the GWERL</h1>
+
+<div class="row">
+	
+	<aside class="span3">
+		<section>
+			<h3>Search a book on the Internet</h3>
+		</section>
+			
+		<section>
+			<%= form_tag("/search", method: "get") do %>
+			  Searck a book based on:
+			  <%= select_tag(:search_criterion, options_for_select([['title', 1], ['author', 2], ['Isbn_10', 3],['Isbn_13', 4],['ASIN', 5], ['Olid', 6] ])) %>
+			  <%= label_tag(:q, "Search for:") %>
+			  <%= text_field_tag(:q) %>
+			  <%= submit_tag "Search", class: "btn btn-large" %>
+			<% end %>
+		</section>
+		
+		<section>
+		</section>
+	</aside>
+	
+	<div class="span6">
+		
+		<%= form_for(@book) do |f| %>
+		  <%= render 'shared/error_messages', object: f.object %>
+
+		  <%= f.text_field :title, :placeholder => "title" %></br>
+
+		  <%= f.text_field :authors, :placeholder => "authors" %></br>
+
+		  <%= f.text_field :identifier, :placeholder => "isbn" %></br>
+
+		  <%= f.text_field :identifier_type, :placeholder => "isbn_10/isbn_13/ASIN/Olid/Other" %></br>
+
+		  <%= f.text_field :publisher, :placeholder => "publisher" %></br>
+
+		  <%= f.text_field :img_url, :placeholder => "image url" %></br>
+
+		  <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
+
+			<%= f.submit "Save book", class: "btn btn-large btn-primary" %>
+
+		<% end %>
+	</div>	
+</div>

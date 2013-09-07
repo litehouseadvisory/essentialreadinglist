@@ -1,2 +1,31 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<% provide(:title, @book.title) %>
+
+<div class="row">
+	<aside class="span4">
+		<section>
+			<h1>
+				<%= @book.title %> 
+			</h1>			
+		</section>
+		
+		<section>
+			<p><%= image_tag @book.img_url, size: "120x120" %></p>
+			<p>Authors: <%= @book.authors %></p>
+			<p>Published by: <%= @book.publisher %></p>
+			<P>Book added by: <%= (User.find(@book.creator_id)).name %> </p>
+		</section>
+		<section>
+		<%= link_to "Edit", edit_book_path, class: "btn btn-large btn-primary" %>
+		<%= link_to "Delete", book_path(@book), :method => "delete" , data: { confirm: "Sure ?"}, class: "btn btn-large" %>
+		</section>
+		<section>
+			Buy this book:
+			<p><%= link_to "On Amazon", amazon_url(@book.identifier) %></p>
+		</section>
+	</aside>
+	
+	<div class="span8">
+	 	section to display additional info about the books, dynamic content, book reviews, etc...
+	</div>		
+	
+</div>

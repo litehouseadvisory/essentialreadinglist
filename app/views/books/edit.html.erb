@@ -1,2 +1,26 @@
-<h1>Books#edit</h1>
-<p>Find me in app/views/books/edit.html.erb</p>
+<%= provide(:title, 'Edit Book') %>
+
+<h1>Editing <%= @book.title %></h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@book) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
+
+	  <%= f.text_field :title, :placeholder => "title" %></br>
+
+	  <%= f.text_field :authors, :placeholder => "authors" %></br>
+
+	  <%= f.text_field :identifier, :placeholder => "isbn" %></br>
+
+	  <%= f.text_field :identifier_type, :placeholder => "isbn_10/isbn_13/ASIN/Olid/Other" %></br>
+
+	  <%= f.text_field :publisher, :placeholder => "publisher" %></br>
+
+	  <%= f.text_field :img_url, :placeholder => "image url" %></br>
+
+		<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+		<%= link_to "Cancel", book_path, class: "btn btn-large" %>
+	<% end %>
+  </div>
+</div>

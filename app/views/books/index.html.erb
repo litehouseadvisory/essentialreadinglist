@@ -1,2 +1,43 @@
-<h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
+<% provide(:title, "All the Books") %>
+
+<div class="row">
+	<aside class="span3">
+		
+		<section>
+			<h3>Search the GWERL</h3>
+		</section>
+
+		<section>
+			<%= form_tag("/search", method: "get") do %>
+				Searck a book:
+				 <%= select_tag(:search_criterion, options_for_select([['title', 1], ['author', 2], ['Isbn_10', 3],['Isbn_13', 4],['ASIN', 5], ['Olid', 6] ])) %>
+				 <%= label_tag(:q, "Search for:") %>
+				 <%= text_field_tag(:q) %>
+				 <%= submit_tag "Search", class: "btn btn-large" %>
+			<% end %>
+		</section>
+		
+		<section>
+			<%= link_to "Add new book", new_book_path, class: "btn btn-large btn-primary" %>
+		</section>	
+		
+		<section>
+			nieuws over laatste boeken,
+			meest bekeken, etc...
+		</section>
+		
+	</aside>
+	<div class="span8">
+		<h3>The Great War's Essential Reading List</h3>
+		<%= will_paginate %>
+
+		<ul class="books">
+				<%= render @books %>
+		</ul>
+
+		<%= will_paginate %>
+	</div>	
+</div>
+
+
+
