@@ -42,6 +42,7 @@ class BooksController < ApplicationController
   end
   
   def search
+    criterion = params[:search_criterion]
     isbn = params[:q]
     book_details =  lookup_book_via_isbn(isbn)
     if book_details.nil?
