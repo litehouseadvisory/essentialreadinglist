@@ -53,6 +53,10 @@ class BooksController < ApplicationController
           book_params = lookup_book_via_ASIN(search_value) 
           @book = Book.new(book_params) unless book_params.nil?
           render 'new'
+        when "Olid"
+          book_params = lookup_book_via_olid(search_value)
+          @book = Book.new(book_params) unless book_params.nil?
+          render 'new'
         else
           book_details =  lookup_book_via(search_criterion, search_value)
           if book_details.nil?
@@ -66,10 +70,9 @@ class BooksController < ApplicationController
             if !isbn.nil?
               search_value = isbn
               search_criterion = "Isbn"
-            end
-            if book_details.cover.nil?
               img_url = lookup_image_on_Amazon(isbn)
-            else
+            end
+            if img_url.nil?
               img_url = book_details.cover["large"]
             end
             amazon_url = amazon_url(isbn) unless isbn.nil?
@@ -103,8 +106,6 @@ class BooksController < ApplicationController
     case search_criterion
     when "Isbn"
       book_details = lookup_book_via_isbn(search_value)
-    when "Olid"
-      book_details = lookup_book_via_olid(search_value)
     when "title"
       book_details = lookup_book_via_title(search_value)
     when "author"
@@ -125,15 +126,40 @@ class BooksController < ApplicationController
   end
   
   def lookup_book_via_olid(olid)
+    
     begin
+      isbn = nil
+      
+      identifier = olid
+      identifier_type = "Olid"
+      
       client = Openlibrary::Client.new
+      
       book = client.book(olid)
+      isbn = book.isbn_10[0] unless book.isbn_10.nil?
+      title = book.title
+      author = book.by_statement
+      publisher = book.publishers[0] unless book.publishers.nil?
+      img_url = book.thumbnail_url
+      
+      if img_url.nil?
+        data = Openlibrary::Data
+        book = data.find_by_olid(olid)
+        img_url = book.cover["large"]
+      end
+      
+      if !isbn.nil?
+        identifier = isbn
+        identifier_type = "Isbn"
+        img_url = lookup_image_on_Amazon(isbn)
+      end
+      book_params = {:title => title, :authors => author, :publisher => publisher, :identifier => identifier, :identifier_type => identifier_type, :img_url => img_url } 
     rescue => e
       logger.error "Openlibrary API CLIENT Olid error"
     end
-    isbn = book.isbn_10[0]
-    book_details = lookup_book_via_isbn(isbn) unless isbn.nil?
+    return book_params
   end
+  
   
   def lookup_book_via_ASIN(asin)
     begin

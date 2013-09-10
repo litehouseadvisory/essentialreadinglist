@@ -19,8 +19,10 @@
 		<%= link_to "Delete", book_path(@book), :method => "delete" , data: { confirm: "Sure ?"}, class: "btn btn-large" %>
 		</section>
 		<section>
-			Buy this book:
-			<p><%= link_to "On Amazon", amazon_url(@book.identifier) %></p>
+			<% if !(@book.identifier_type == "Olid") %>
+				Buy this book:
+				<p><%= link_to "On Amazon", amazon_url(@book.identifier) %></p>
+			<% end %>
 		</section>
 	</aside>
 	
