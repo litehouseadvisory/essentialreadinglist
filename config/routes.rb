@@ -1,6 +1,7 @@
 Gwerl::Application.routes.draw do
   resources :books 
   match '/search', to: 'books#search', via: 'get'
+  match '/search_gwerl', to: 'books#search_gwerl', via: 'get'
   resources :users do
     member do
       get :following, :followers

@@ -12,7 +12,7 @@
 		<section>
 			<%= form_tag("/search", method: "get") do %>
 			  Searck a book based on:
-			  <%= select_tag(:search_criterion, options_for_select([['title', 1], ['author', 2], ['Isbn_', 3], ['ASIN', 4], ['Olid', 5] ])) %>
+			  <%= select_tag(:search_criterion, options_for_select([['title', "title"], ['author', "author"], ['Isbn', "Isbn"], ['ASIN - Amazon', "ASIN"], ['Olid - Openlibrary', "Olid"] ])) %>
 			  <%= label_tag(:q, "Search for:") %>
 			  <%= text_field_tag(:q) %>
 			  <%= submit_tag "Search", class: "btn btn-large" %>
@@ -34,7 +34,7 @@
 
 		  <%= f.text_field :identifier, :placeholder => "isbn" %></br>
 
-		  <%= f.text_field :identifier_type, :placeholder => "isbn_10/isbn_13/ASIN/Olid/Other" %></br>
+		  <%= f.select :identifier_type, Book::BOOK_IDENTIFIER_TYPES, :prompt => 'Select type' %></br>
 
 		  <%= f.text_field :publisher, :placeholder => "publisher" %></br>
 
@@ -43,6 +43,7 @@
 		  <div><%= f.hidden_field :creator_id, :value => current_user.id %></div>
 
 			<%= f.submit "Save book", class: "btn btn-large btn-primary" %>
+			<%= link_to "Cancel", new_book_path, class: "btn btn-large" %>
 
 		<% end %>
 	</div>	

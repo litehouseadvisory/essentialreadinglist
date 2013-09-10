@@ -11,9 +11,9 @@
 
 	  <%= f.text_field :authors, :placeholder => "authors" %></br>
 
-	  <%= f.text_field :identifier, :placeholder => "isbn" %></br>
+	  <%= f.text_field :identifier, :placeholder => "identifier" %></br>
 
-	  <%= f.text_field :identifier_type, :placeholder => "isbn_10/isbn_13/ASIN/Olid/Other" %></br>
+	  <%= f.select :identifier_type, Book::BOOK_IDENTIFIER_TYPES, :prompt => 'Select type' %></br>
 
 	  <%= f.text_field :publisher, :placeholder => "publisher" %></br>
 

@@ -8,7 +8,7 @@
 		</section>
 
 		<section>
-			<%= form_tag("/search", method: "get") do %>
+			<%= form_tag("/search_gwerl", method: "get") do %>
 				Searck a book:
 				 <%= select_tag(:search_criterion, options_for_select([['title', 1], ['author', 2], ['Isbn', 3],['ASIN', 5], ['Olid', 6] ])) %>
 				 <%= label_tag(:q, "Search for:") %>
