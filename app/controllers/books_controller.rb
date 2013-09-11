@@ -73,7 +73,9 @@ class BooksController < ApplicationController
               img_url = lookup_image_on_Amazon(isbn)
             end
             if img_url.nil?
-              img_url = book_details.cover["large"]
+              data = Openlibrary::Data
+              book = data.find_by_isbn(isbn)
+              img_url = book.cover["large"]
             end
             amazon_url = amazon_url(isbn) unless isbn.nil?
             book_params = {:title => book_details.title, :authors => author, :publisher => publisher, :identifier => search_value, :identifier_type => search_criterion, :img_url => img_url } 
