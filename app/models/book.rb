@@ -1,8 +1,14 @@
 class Book < ActiveRecord::Base
   belongs_to :user
+  has_many :comments
+  has_many :ratings
   
   BOOK_IDENTIFIER_TYPES = ["isbn", "ASIN", "Olid"]
   BOOK_SEARCH_CRITERIA = ["titel", "author", "isbn", "ASIN", "Olid"]
+  
+  def average_rating
+    ratings.average(:score).round(0)
+  end
   
   #Ruby
   def is_valid?(isbn)

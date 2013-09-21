@@ -8,13 +8,13 @@
 		</section>
 
 		<section>
-			<%= form_tag("/search_gwerl", method: "get") do %>
-				Searck a book:
-				 <%= select_tag(:search_criterion, options_for_select([['title', 1], ['author', 2], ['Isbn', 3],['ASIN', 5], ['Olid', 6] ])) %>
-				 <%= label_tag(:q, "Search for:") %>
-				 <%= text_field_tag(:q) %>
-				 <%= submit_tag "Search", class: "btn btn-large" %>
-			<% end %>
+			<%= search_form_for @q do |f| %>
+				<%= f.text_field :title_cont, :placeholder => "title"  %>
+				<%= f.text_field :authors_cont, :placeholder => "author"  %>
+				<%= f.text_field :publisher_cont, :placeholder => "publisher"  %>
+				<%= f.text_field :identifier_cont, :placeholder => "isbn, asin, olid"  %>
+				 <%= f.submit class: "btn" %>
+				<% end %>
 		</section>
 		
 		<section>
@@ -29,13 +29,13 @@
 	</aside>
 	<div class="span8">
 		<h3>The Great War's Essential Reading List</h3>
-		<%= will_paginate %>
+		<%= will_paginate @books%>
 
 		<ul class="books">
 				<%= render @books %>
 		</ul>
 
-		<%= will_paginate %>
+		<%= will_paginate @books %>
 	</div>	
 </div>
 

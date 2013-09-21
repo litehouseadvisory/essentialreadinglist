@@ -1,5 +1,11 @@
 Gwerl::Application.routes.draw do
-  resources :books 
+  resources :comments
+  resources :books do
+    collection do
+      match 'search' => 'books#index', :via => [:get, :post], :as => :search
+    end
+  end
+  resources :ratings, only: :update
   match '/search', to: 'books#search', via: 'get'
   match '/search_gwerl', to: 'books#search_gwerl', via: 'get'
   resources :users do

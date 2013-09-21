@@ -6,11 +6,20 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.paginate(page: params[:page], :per_page => 10)
+    @q = Book.search(params[:q])
+    @books = @q.result(distinct: true).paginate(page: params[:page], :per_page => 10)
+    
   end
 
   def show
     @book = Book.find(params[:id])
+    current_book=(@book)
+    @comment = @book.comments.build
+    @comments = @book.comments.paginate(page: params[:page])
+    if signed_in?
+      @rating = Rating.where(book_id: @book.id, user_id: current_user.id).first
+      @rating = Rating.create(book_id: @book.id, user_id: current_user.id) unless @rating 
+    end
   end
 
   def create
@@ -91,17 +100,7 @@ class BooksController < ApplicationController
   end
   
   def search_gwerl
-    search_criterion = params[:search_criterion]
-    search_value = params[:q]
-    
-    return_whatever = nil
-    
-    if return_whatever.nil?
-      flash[:error] = "Nothing found"
-      redirect_to books_path
-    else
-      
-    end
+   @books = Book.paginate(page: params[:page], :per_page => 10)
   end
   
   def lookup_book_via(search_criterion, search_value)

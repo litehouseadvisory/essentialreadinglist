@@ -7,12 +7,16 @@
 				<%= @book.title %> 
 			</h1>			
 		</section>
-		
+		<section>
+			<div id="star"></div>
+		</section>
 		<section>
 			<p><%= image_tag @book.img_url, size: "120x120" %></p>
 			<p>Authors: <%= @book.authors %></p>
 			<p>Published by: <%= @book.publisher %></p>
+			<P>Identifier: <%= @book.identifier %></p>
 			<P>Book added by: <%= (User.find(@book.creator_id)).name %> </p>
+			<p>Rate this book  <div id="user_star"></div></p>
 		</section>
 		<section>
 		<%= link_to "Edit", edit_book_path, class: "btn btn-large btn-primary" %>
@@ -27,7 +31,48 @@
 	</aside>
 	
 	<div class="span8">
-	 	section to display additional info about the books, dynamic content, book reviews, etc...
+	 	<section>
+			 <%= render 'shared/comment_form' %>
+		</section>
+		<section>
+			<% if !(@book.comments.count == 0) %>
+			<h3>Book reviews: (<%= @book.comments.count %>)</h3>
+			<ol class="microposts">
+				<%= render @comments %>
+			</ol>
+			<%= will_paginate @comments %>
+			<% else %>
+				<P>Be the first to write a review for this book...</p>
+			<% end %>
+		</section>
 	</div>		
-	
+	<div class="span8">
+		<section>
+		 	section to display additional info about the books, dynamic content, book reviews, etc...
+		</section>
+	</div>
 </div>
+
+<script>
+
+  $('#star').raty({
+    readOnly: true,
+    score: <%= @book.average_rating %>,
+    path: "/assets"
+  });
+
+
+<% if signed_in? %>
+  $('#user_star').raty({
+    score: <%= @rating.score %>,
+    path: '/assets',
+    click: function(score, evt) {
+      $.ajax({
+        url: '/ratings/' + <%= @rating.id %>,
+        type: 'PATCH',
+        data: { score: score }
+      });
+    }
+  });
+<% end %>
+</script>
