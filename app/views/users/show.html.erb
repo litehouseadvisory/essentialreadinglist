@@ -10,6 +10,13 @@
 		<section>
 			<%= render 'shared/stats' %>
 		</section>
+		<section>
+			
+				
+		<P>Member of the GWERL for</p>
+		<p><%= distance_of_time_in_words(Time.now,@user.created_at) %> </p>	
+			
+		</section>
 	</aside>
 	<div class="span8">
 		<%= render 'follow_form' if signed_in? %>
@@ -19,6 +26,13 @@
 			<%= render @microposts %>
 		</ol>
 		<%= will_paginate @microposts %>
+		<% end %>
+		<% if @user.books.any? %>
+		<h3>Books Added (<%= @user.books.count %>)</h3>
+		<ol class="microposts">
+			<%= render @books %>
+		</ol>
+		<%= will_paginate @books %>
 		<% end %>
 	</div>		
 </div>

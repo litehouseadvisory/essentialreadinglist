@@ -1,0 +1,5 @@
+<% @new_books.each do |book| %>
+	<% if !book.img_url.empty? %>
+		<%= link_to((image_tag book.img_url, size: "50x50"), book) %>
+	<% end %>
+<% end %>

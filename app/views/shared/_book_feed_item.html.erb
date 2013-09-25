@@ -1,0 +1,6 @@
+<li id="<%= book_feed_item.id %>">
+	<%= link_to(book_feed_item.title, book_feed_item) %>
+	<span class="timestamp">
+		Added <%= time_ago_in_words(book_feed_item.created_at) %> ago.
+	</span>
+</li>

@@ -12,10 +12,25 @@
 			<section>
 				 <%= render 'shared/micropost_form' %>
 			</section>	
+			<section>
+				<h3>Recently added...</h3>
+				<%= render 'shared/new_books' %>
+			</section>
 		</aside>
 		<div class="span8">
-			<h3>Micropost Feed</h3>
-			<%= render 'shared/feed' %>
+			<section>
+				<h3>Micropost Feed</h3>
+				<%= render 'shared/feed' %>
+			</section>
+			<section>
+				<% if @user.books.any? %>
+				<h3>Book Feed</h3>
+				<ol class="microposts">
+					<%= render @books %>
+				</ol>
+				<%= will_paginate @books %>
+				<% end %>
+			</section>
 		</div>	
 	</div>
 <% else %>		

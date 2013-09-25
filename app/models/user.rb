@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :books
-  has_many :comments
+  has_many :books, foreign_key: :creator_id
+  has_many :comments, dependent: :destroy
   has_many :ratings
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy

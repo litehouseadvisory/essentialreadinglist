@@ -8,14 +8,14 @@ class BooksController < ApplicationController
   def index
     @q = Book.search(params[:q])
     @books = @q.result(distinct: true).paginate(page: params[:page], :per_page => 10)
-    
+    @new_books = my_latest_books_added(current_user)
   end
 
   def show
     @book = Book.find(params[:id])
     current_book=(@book)
     @comment = @book.comments.build
-    @comments = @book.comments.paginate(page: params[:page])
+    @comments = @book.comments.paginate(page: params[:page], :per_page => 10)
     if signed_in?
       @rating = Rating.where(book_id: @book.id, user_id: current_user.id).first
       @rating = Rating.create(book_id: @book.id, user_id: current_user.id) unless @rating 

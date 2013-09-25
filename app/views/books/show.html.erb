@@ -11,11 +11,12 @@
 			<div id="star"></div>
 		</section>
 		<section>
+			<% creator = User.find(@book.creator_id) %>
 			<p><%= image_tag @book.img_url, size: "120x120" %></p>
 			<p>Authors: <%= @book.authors %></p>
 			<p>Published by: <%= @book.publisher %></p>
 			<P>Identifier: <%= @book.identifier %></p>
-			<P>Book added by: <%= (User.find(@book.creator_id)).name %> </p>
+			<P>Book added by: <%= link_to(creator.name,creator) %> </p>
 			<p>Rate this book  <div id="user_star"></div></p>
 		</section>
 		<section>
@@ -31,6 +32,7 @@
 	</aside>
 	
 	<div class="span8">
+		<h1>Book Reviews</h1>
 	 	<section>
 			 <%= render 'shared/comment_form' %>
 		</section>

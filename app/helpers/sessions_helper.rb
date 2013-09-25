@@ -52,4 +52,12 @@ module SessionsHelper
     amazon_url = link.to_s
   end
   
+  def latest_books_added
+    latest_books = Book.order("created_at DESC").first(5)
+  end
+  
+  def my_latest_books_added(user)
+    latest_books = user.books.order("created_at DESC").first(5)
+  end
+  
 end

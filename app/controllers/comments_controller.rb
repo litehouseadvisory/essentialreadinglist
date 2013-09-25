@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
         flash[:success] = "Your book review was saved!"
         redirect_to current_book
       else
+        flash[:error] = "Your book review could not be saved!"
         redirect_to current_book
       end
   end
