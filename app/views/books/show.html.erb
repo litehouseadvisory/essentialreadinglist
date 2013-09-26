@@ -16,26 +16,46 @@
 			<p>Authors: <%= @book.authors %></p>
 			<p>Published by: <%= @book.publisher %></p>
 			<P>Identifier: <%= @book.identifier %></p>
-			<P>Book added by: <%= link_to(creator.name,creator) %> </p>
-			<p>Rate this book  <div id="user_star"></div></p>
+			<% if signed_in? %>
+				<P>Book added by: <%= link_to(creator.name,creator) %> </p>
+				<p>Rate this book  <div id="user_star"></div></p>
+			<% end %>	
 		</section>
-		<section>
-		<%= link_to "Edit", edit_book_path, class: "btn btn-large btn-primary" %>
-		<%= link_to "Delete", book_path(@book), :method => "delete" , data: { confirm: "Sure ?"}, class: "btn btn-large" %>
-		</section>
+		<% if signed_in? %>
+			<section>
+				<%= link_to "Edit", edit_book_path, class: "btn btn-large btn-primary" %>
+				<%= link_to "Delete", book_path(@book), :method => "delete" , data: { confirm: "Sure ?"}, class: "btn btn-large" %>
+			</section>
+		<% end %>	
 		<section>
 			<% if !(@book.identifier_type == "Olid") %>
 				Buy this book:
 				<p><%= link_to "On Amazon", amazon_url(@book.identifier) %></p>
 			<% end %>
 		</section>
+		<section>
+			<!-- AddThis Button BEGIN -->
+			<div class="addthis_toolbox addthis_default_style ">
+				<a class="addthis_button_preferred_1"></a>
+				<a class="addthis_button_preferred_2"></a>
+				<a class="addthis_button_preferred_3"></a>
+				<a class="addthis_button_preferred_4"></a>
+				<a class="addthis_button_compact"></a>
+				<a class="addthis_counter addthis_bubble_style"></a>
+			</div>
+			<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52442ce57a2dd99d"></script>
+			<!-- AddThis Button END -->
+		</section>
 	</aside>
 	
 	<div class="span8">
 		<h1>Book Reviews</h1>
-	 	<section>
-			 <%= render 'shared/comment_form' %>
-		</section>
+		<% if signed_in? %>
+	 		<section>
+			 	<%= render 'shared/comment_form' %>
+			</section>
+		<% end %>	
 		<section>
 			<% if !(@book.comments.count == 0) %>
 			<h3>Book reviews: (<%= @book.comments.count %>)</h3>
@@ -44,7 +64,11 @@
 			</ol>
 			<%= will_paginate @comments %>
 			<% else %>
-				<P>Be the first to write a review for this book...</p>
+				<% if signed_in? %>
+					<P>Be the first to write a review for this book...</p>
+				<% else %>
+					<P>Sign up to be the first to write a review for this book...</p>
+				<% end %>
 			<% end %>
 		</section>
 	</div>		

@@ -5,17 +5,17 @@
 			<h1>
 				<%= gravatar_for @user %>
 				<%= @user.name %> 	
+				<% if @user.admin %>
+					<p>ADMINISTRATOR</p>
+				<% end %>
 			</h1>
 		</section>
 		<section>
 			<%= render 'shared/stats' %>
 		</section>
-		<section>
-			
-				
-		<P>Member of the GWERL for</p>
-		<p><%= distance_of_time_in_words(Time.now,@user.created_at) %> </p>	
-			
+		<section>	
+			<p>Member of the GWERL for</p>
+			<p><%= distance_of_time_in_words(Time.now,@user.created_at) %> </p>				
 		</section>
 	</aside>
 	<div class="span8">

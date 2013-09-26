@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+  before_action :signed_in_user, only: [ :edit, :update, :destroy, :update ]
+  
   
   
   def new
@@ -8,7 +10,7 @@ class BooksController < ApplicationController
   def index
     @q = Book.search(params[:q])
     @books = @q.result(distinct: true).paginate(page: params[:page], :per_page => 10)
-    @new_books = my_latest_books_added(current_user)
+    @new_books = latest_books_added
   end
 
   def show
@@ -105,7 +107,7 @@ class BooksController < ApplicationController
   
   def lookup_book_via(search_criterion, search_value)
     case search_criterion
-    when "Isbn"
+    when "isbn"
       book_details = lookup_book_via_isbn(search_value)
     when "title"
       book_details = lookup_book_via_title(search_value)
@@ -231,4 +233,5 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit( :title, :authors, :publisher, :identifier, :identifier_type, :creator_id, :img_url  )
   end
+  
 end

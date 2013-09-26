@@ -7,7 +7,7 @@ class StaticPagesController < ApplicationController
       @micropost = current_user.microposts.build
       @feed_items = current_user.feed.paginate(page: params[:page], :per_page => 5)
       @books = current_user.books.paginate(page: params[:page], :per_page => 10)
-      @new_books = latest_books_added
+      @new_books = my_latest_books_added(current_user)
     end
   end
 

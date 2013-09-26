@@ -13,9 +13,10 @@
 				 <%= render 'shared/micropost_form' %>
 			</section>	
 			<section>
-				<h3>Recently added...</h3>
+				<p>My recent contributions...</p>
 				<%= render 'shared/new_books' %>
 			</section>
+		
 		</aside>
 		<div class="span8">
 			<section>
@@ -24,7 +25,7 @@
 			</section>
 			<section>
 				<% if @user.books.any? %>
-				<h3>Book Feed</h3>
+				<h3>My Books</h3>
 				<ol class="microposts">
 					<%= render @books %>
 				</ol>
@@ -56,7 +57,10 @@
 				<p>New user? <%= link_to "Sign up now!", signup_path %></p>
 			</div>
 		</div>
+		<%= link_to image_tag("gwerl.png", alt: "Gwerl") %>
 </div>
 	
-<%= link_to image_tag("gwerl.png", alt: "Gwerl") %>
+<iframe src="http://www.facebook.com/plugins/like.php?href=http://essentialreadinglist.heroku.com/"
+        scrolling="no" frameborder="0"
+        style="border:none; width:450px; height:70px"></iframe>
 <% end %>

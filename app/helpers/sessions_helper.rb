@@ -60,4 +60,5 @@ module SessionsHelper
     latest_books = user.books.order("created_at DESC").first(5)
   end
   
+  
 end

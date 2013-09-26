@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
+  before_action :signed_in_user, only: [:index, :edit, :update, :show, :destroy, :following, :followers]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
   
@@ -44,9 +44,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User deleted."
+    user = User.find(params[:id])
+    if user.books.empty?
+      user.destroy
+      flash[:success] = "User deleted."
       redirect_to users_url
+    else
+      flash[:error] = "This user has added books to the GWERL and cannot be deleted."
+      redirect_to :back
+    end
   end
   
   def following

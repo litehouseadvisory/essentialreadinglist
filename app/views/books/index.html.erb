@@ -16,13 +16,13 @@
 				 <%= f.submit class: "btn" %>
 				<% end %>
 		</section>
-		
+		<% if signed_in? %>
+			<section>
+				<%= link_to "Add new book", new_book_path, class: "btn btn-large btn-primary" %>
+			</section>	
+		<% end %>
 		<section>
-			<%= link_to "Add new book", new_book_path, class: "btn btn-large btn-primary" %>
-		</section>	
-		
-		<section>
-			<p>My latest contributions...</p>
+			<h3>Recently added...</h3>
 			<%= render 'shared/new_books' %>
 		</section>
 				

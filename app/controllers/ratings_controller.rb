@@ -1,5 +1,6 @@
 class RatingsController < ActionController::Base
   
+  
   def update
      @rating = Rating.find(params[:id])
      @book = @rating.book
