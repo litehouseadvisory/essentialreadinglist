@@ -16,6 +16,7 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     current_book=(@book)
+    @amazon_url= amazon_url(@book.identifier) unless (@book.identifier_type == "Olid")
     @comment = @book.comments.build
     @comments = @book.comments.paginate(page: params[:page], :per_page => 10)
     if signed_in?

@@ -47,9 +47,14 @@ module SessionsHelper
   
   def amazon_url(isbn)
     link = "unknown"
-    res = Amazon::Ecs.item_lookup(isbn, { :response_group => "Medium"})
-    link = res.items[0].get("DetailPageURL") unless res.items.first.nil?
-    amazon_url = link.to_s
+    begin
+      res = Amazon::Ecs.item_lookup(isbn, { :response_group => "Medium"})
+      link = res.items[0].get("DetailPageURL") unless res.items.first.nil?
+      amazon_url = link.to_s
+    rescue
+      logger.error "Book unknown on Amazon" 
+      flash[:error] = "Sorry, could not find this book on Amazon"
+    end
   end
   
   def latest_books_added
