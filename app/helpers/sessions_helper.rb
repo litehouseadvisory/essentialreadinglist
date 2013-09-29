@@ -58,11 +58,19 @@ module SessionsHelper
   end
   
   def latest_books_added
-    latest_books = Book.order("created_at DESC").first(5)
+    latest_books = Book.order("created_at ASC").first(5)
   end
   
   def my_latest_books_added(user)
-    latest_books = user.books.order("created_at DESC").first(5)
+    latest_books = user.books.order("created_at ASC").first(5)
+  end
+  
+  def user_stats
+    users_count = User.count
+  end
+  
+  def book_stats
+    books_count = Book.count
   end
   
   

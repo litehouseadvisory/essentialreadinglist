@@ -29,6 +29,19 @@ html, body {
 #header h1 {
 	text-align: left;
 }
+
+#stats {
+		    position: absolute;
+		    top: 90%;
+		    left: 20px;
+		    z-index: 999;
+		    color: #FFA500;
+		    padding: 5px;
+		    width: 450px;
+		    height: 70px;
+		    border-radius: 5%;
+		    text-align: left;
+}	
 		
 #slogan {
 			color: #21a97e;
