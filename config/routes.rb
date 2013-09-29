@@ -1,4 +1,4 @@
-Gwerl::Application.routes.draw do
+Essentialreadinglist::Application.routes.draw do
   resources :comments
   resources :books do
     collection do

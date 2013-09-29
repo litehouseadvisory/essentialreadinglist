@@ -24,4 +24,4 @@ def secure_token
   end
 end
 
-Gwerl::Application.config.secret_key_base = secure_token
+Essentialreadinglist::Application.config.secret_key_base = secure_token
