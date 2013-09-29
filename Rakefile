@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Gwerl::Application.load_tasks
+Essentialreadinglist::Application.load_tasks
