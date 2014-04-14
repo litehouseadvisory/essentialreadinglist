@@ -24,4 +24,4 @@ doc/
 .DS_Store
 .idea
 .secret
-
+amazon_ecs.rb
